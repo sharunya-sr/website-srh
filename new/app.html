@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		// Important stuff is in the pseudo element
+.content {
+	max-width: 700px;
+	margin: 60px auto;
+}
+.item {
+	position: relative;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	
+	&__img {
+		width: 66%; // Notice the image is 66% so the clip-path (in :before) can go from 34% -> 100%
+		right: 0;
+		z-index: -1;
+		img {
+			display: inline-block;
+			max-width: 100%;
+			height: 350px;
+			object-fit: cover;
+		}
+	}
+	&__desc {
+		position: absolute;
+		width: 100%;
+		
+		h1 {
+			font-size: 6em;
+			
+			&:before, &:after { // Important stuff
+				content: attr(data-title);
+				position: absolute;
+				top: 0; left: 0; right: 0; bottom: 0;
+				color: white;
+				clip-path: polygon(34% 0%, 100% 0%, 100% 100%, 34% 100%);
+				-webkit-clip-path: polygon(34% 0%, 100% 0%, 100% 100%, 34% 100%);
+				transition: all 600ms 300ms;
+			}
+			&:hover:before {
+				clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+				-webkit-clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+				transition: all 600ms;
+			}
+			&:after {
+				color: #FF9E80;
+				clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+				-webkit-clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+				transition: all 600ms 0ms;
+			}
+			&:hover:after {
+				clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+				-webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+				transition: all 600ms 200ms;
+			}
+		}
+		p {
+			line-height: 1.5em;
+		}
+	}
+}
+	</style>
+</head>
+<body>
+<div class="content">
+	<div class="item">
+		<div class="item__img">
+			<img src="https://images.unsplash.com/photo-1472653431158-6364773b2a56?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Dj Area">
+		</div>
+		<div class="item__desc">
+			<h1 data-title="Live Music">Live Music</h1>
+			<p>Every Friday + Saturday</br>
+			on the greenspace</p>
+		</div>
+	</div>
+</div>
+</body>
+</html>
